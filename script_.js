@@ -5,9 +5,9 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// เพิ่มแสงให้หัวใจเห็นชัดขึ้น
-const light = new THREE.DirectionalLight(0xffffff, 1);
-light.position.set(5, 5, 5).normalize();
+// เพิ่มแสงให้หัวใจสว่าง
+const light = new THREE.PointLight(0xffffff, 1, 100);
+light.position.set(2, 2, 5);
 scene.add(light);
 
 // สร้างรูปหัวใจ
@@ -17,18 +17,28 @@ shape.bezierCurveTo(-1, 1, -1, 3, 0, 4);
 shape.bezierCurveTo(1, 3, 1, 1, 0, 0);
 const geometry = new THREE.ExtrudeGeometry(shape, { depth: 0.5, bevelEnabled: true });
 
-// ใช้ Phong Material เพื่อให้มีแสงเงา
 const material = new THREE.MeshPhongMaterial({ color: 0xff0000, shininess: 100 });
 const heart = new THREE.Mesh(geometry, material);
+heart.scale.set(1.5, 1.5, 1.5); // ลดขนาดหัวใจ
+heart.position.set(0, -2, 0); // ขยับให้เห็นในจอ
 scene.add(heart);
 
-// ตั้งตำแหน่งกล้องให้เห็นหัวใจ
-camera.position.z = 5;
+// ตั้งค่ากล้องให้มองเห็นหัวใจ
+camera.position.set(0, 0, 5);
+camera.lookAt(heart.position);
 
-// ทำให้หัวใจหมุน
+// เพิ่ม OrbitControls ให้ลากได้
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+controls.screenSpacePanning = false;
+controls.maxPolarAngle = Math.PI;
+
+// อัปเดตการแสดงผล
 function animate() {
     requestAnimationFrame(animate);
-    heart.rotation.y += 0.01;
+    heart.rotation.y += 0.01; // หมุนหัวใจ
+    controls.update();
     renderer.render(scene, camera);
 }
 animate();
