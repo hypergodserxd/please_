@@ -1,51 +1,29 @@
-// สร้างฉาก กล้อง และ renderer
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+@import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
 
-// เพิ่มแสงให้หัวใจสว่าง
-const light = new THREE.PointLight(0xffffff, 1, 100);
-light.position.set(2, 2, 5);
-scene.add(light);
-
-// สร้างรูปหัวใจ
-const shape = new THREE.Shape();
-shape.moveTo(0, 0);
-shape.bezierCurveTo(-1, 1, -1, 3, 0, 4);
-shape.bezierCurveTo(1, 3, 1, 1, 0, 0);
-const geometry = new THREE.ExtrudeGeometry(shape, { depth: 0.5, bevelEnabled: true });
-
-const material = new THREE.MeshPhongMaterial({ color: 0xff0000, shininess: 100 });
-const heart = new THREE.Mesh(geometry, material);
-heart.scale.set(1.5, 1.5, 1.5); // ลดขนาดหัวใจ
-heart.position.set(0, -2, 0); // ขยับให้เห็นในจอ
-scene.add(heart);
-
-// ตั้งค่ากล้องให้มองเห็นหัวใจ
-camera.position.set(0, 0, 5);
-camera.lookAt(heart.position);
-
-// เพิ่ม OrbitControls ให้ลากได้
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
-controls.dampingFactor = 0.05;
-controls.screenSpacePanning = false;
-controls.maxPolarAngle = Math.PI;
-
-// อัปเดตการแสดงผล
-function animate() {
-    requestAnimationFrame(animate);
-    heart.rotation.y += 0.01; // หมุนหัวใจ
-    controls.update();
-    renderer.render(scene, camera);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-animate();
 
-// ปรับขนาดเมื่อหน้าจอเปลี่ยน
-window.addEventListener("resize", () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-family: 'Sriracha', cursive;
+    text-align: center;
+}
+
+.container h1 {
+    font-size: 5rem;
+    color: white;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
