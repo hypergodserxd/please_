@@ -1,18 +1,49 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>อาริว รักเพชร</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>หัวใจ เอฟเฟค</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffe6f2; /* พื้นหลังชมพู */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .heart {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            clip-path: polygon(50% 0%, 0% 35%, 0% 70%, 50% 100%, 100% 70%, 100% 35%);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* เอฟเฟคเมื่อกดค้าง */
+        .heart:active {
+            transform: scale(1.2); /* ขยายหัวใจ */
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7); /* เอฟเฟคเงา */
+        }
+
+        h1 {
+            color: #ff4d94;
+            font-size: 40px;
+        }
+
+    </style>
 </head>
 <body>
-    <div id="heart-container"></div>
-    <div id="text-container">
+
+    <div>
         <h1>อาริว รักเพชร</h1>
+        <div class="heart"></div> <!-- หัวใจ -->
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>
