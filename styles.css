@@ -1,18 +1,30 @@
-/* เพิ่มสไตล์พื้นฐาน */
+/* ตั้งค่าพื้นหลังสีชมพู */
 body {
     margin: 0;
     overflow: hidden;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    background-color: #FFCCE5; /* พื้นหลังสีชมพู */
+    font-family: 'Arial', sans-serif;
 }
 
+/* จัดตำแหน่งข้อความ */
+#text-container {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: #8B0000; /* สีตัวอักษรแดงเข้ม */
+    font-size: 3rem;
+    font-family: 'Courier New', Courier, monospace; /* ใช้ฟอนต์แบบเก่า */
+}
+
+/* ตั้งค่าขนาดของ heart-container */
 #heart-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
 }
+
