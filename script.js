@@ -1,9 +1,19 @@
-// สร้างฉาก กล้อง และ renderer
+// ตรวจสอบว่า script.js โหลดสำเร็จ
+console.log("✅ script.js โหลดสำเร็จ!");
+
+// สร้างฉาก กล้อง และ Renderer
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, 400 / 400, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setSize(400, 400);
-document.getElementById("heart-container").appendChild(renderer.domElement);
+
+// ตรวจสอบว่ามี div 'heart-container' หรือไม่
+const container = document.getElementById("heart-container");
+if (container) {
+    container.appendChild(renderer.domElement);
+} else {
+    console.error("❌ ไม่พบ #heart-container");
+}
 
 // เพิ่มแสงให้หัวใจดูมีมิติ
 const light = new THREE.PointLight(0xffffff, 1.5, 100);
@@ -19,8 +29,8 @@ const geometry = new THREE.ExtrudeGeometry(shape, { depth: 0.5, bevelEnabled: tr
 
 const material = new THREE.MeshPhongMaterial({ color: 0xff0000, shininess: 100 });
 const heart = new THREE.Mesh(geometry, material);
-heart.scale.set(1.5, 1.5, 1.5); // ปรับขนาดหัวใจ
-heart.position.set(0, -2, 0); // ขยับให้เห็นในจอ
+heart.scale.set(1.5, 1.5, 1.5);
+heart.position.set(0, -2, 0);
 scene.add(heart);
 
 // ตั้งค่ากล้องให้มองเห็นหัวใจ
@@ -30,7 +40,7 @@ camera.lookAt(heart.position);
 // ทำให้หัวใจหมุน
 function animate() {
     requestAnimationFrame(animate);
-    heart.rotation.y += 0.01; // หมุนหัวใจ
+    heart.rotation.y += 0.01;
     renderer.render(scene, camera);
 }
 animate();
